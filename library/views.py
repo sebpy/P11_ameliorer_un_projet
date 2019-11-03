@@ -1,6 +1,6 @@
 """ View file for module Library """
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.db import IntegrityError
@@ -237,3 +237,25 @@ def read_user_list(request):
             'products': query,
         }
         return render(request, 'library/saved.html', context)
+
+
+@login_required
+def delete_saved(request):
+    """ Function for display saved products for current user """
+
+    del_id = request.GET.get('id')
+    try:
+        delete = UserSaveProduct.objects.get(pk=del_id)
+        delete.delete()
+
+        messages.success(request, '<strong><i class="fas fa-exclamation-triangle">'
+                                  '</i> Succès!</strong><br>'
+                                  'Aliment supprimé avec succès.', extra_tags='safe')
+
+    except Exception as ex:
+        print(str(ex))
+        msg = "\n\nDelete error"
+        print(msg)
+
+    return redirect('/library/saved/')
+
