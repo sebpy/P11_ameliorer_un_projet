@@ -108,7 +108,6 @@ class SaveTestCase(TestCase):
     def test_save(self):
         client = Client()
         client.login(username="Test", password="testdjango")
-        old_count = UserSaveProduct.objects.filter(user_id=self.user.id).count()
         response = client.post(
             '/library/save/?id=' + str(self.product.id),
             {
@@ -117,8 +116,17 @@ class SaveTestCase(TestCase):
             }
         )
         new_count = UserSaveProduct.objects.filter(user_id=self.user.id).count()
-        self.assertEqual(new_count, old_count + 1)
+        self.assertEqual(new_count, 1)
         assert response.status_code == 200
+
+    def test_del_save(self):
+        client = Client()
+        client.login(username="Test", password="testdjango")
+        client.post(
+            '/library/save/' + str(self.product) + '/delete',
+        )
+        new_count = UserSaveProduct.objects.filter(user_id=self.user.id).count()
+        self.assertEqual(new_count, 0)
 
 
 class SearchTestCase(TestCase):
@@ -195,5 +203,3 @@ class SavedProductsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         response = client.get('/library/saved/')
         self.assertContains(response, 'Chocalat caramel')
-
-

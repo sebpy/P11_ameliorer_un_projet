@@ -59,3 +59,11 @@ class TestRegisterFormTestCase(TestCase):
         data = {'username': user_register.username, 'email': user_register.email, 'password': user_register.password, }
         form = RegisterForm(data=data)
         self.assertFalse(form.is_valid())
+
+    def test_invalid_passwd(self):
+        user_register = User.objects.create_user(username="Test",
+                                                 email="test@django.fr",
+                                                 password="test")
+        data = {'username': user_register.username, 'email': user_register.email, 'password': user_register.password, }
+        form = RegisterForm(data=data)
+        self.assertFalse(form.is_valid())
