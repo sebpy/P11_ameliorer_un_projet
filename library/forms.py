@@ -40,11 +40,13 @@ class RegisterForm(forms.Form):
 
     password1 = forms.CharField(
         label='Mot de passe',
+        min_length=6,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Mot de passe'}),
         required=True)
 
     password2 = forms.CharField(
         label='Mot de passe',
+        min_length=6,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirmer Mot de passe'}),
         required=True)
 

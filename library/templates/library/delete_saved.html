@@ -1,0 +1,26 @@
+{% extends 'library/base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="delete" class="mg-t-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="content-section">
+                    <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Suppression de produit sauvegardé</legend>
+                        <p>Etes vous sûr de vouloir supprimer le produit "{{ product.product_id }}" de vos produits sauvegardés ?</p>
+                    </fieldset>
+                    <div class="form-group">
+                        <a href="{% url 'delete' %}?id={{ product.id }}" class="btn btn-outline-danger">Oui, supprimer</a>
+                        <a class="btn btn-outline-secondary" href="{% url 'saved' %}">Annuler</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

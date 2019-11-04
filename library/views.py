@@ -240,6 +240,25 @@ def read_user_list(request):
 
 
 @login_required
+def confirm_delete(request, del_int):
+    """ Function for display saved products for current user """
+
+    query = UserSaveProduct.objects.get(pk=del_int)
+    if not query:
+        messages.error(request, '<strong><i class="fas fa-exclamation-triangle">'
+                                '</i> ERREUR!</strong><br>'
+                                'Une erreur est survenue.', extra_tags='safe')
+
+        return render(request, 'library/index.html')
+
+    if query:
+        context = {
+            'product': query,
+        }
+        return render(request, 'library/delete_saved.html', context)
+
+
+@login_required
 def delete_saved(request):
     """ Function for display saved products for current user """
 
@@ -258,4 +277,3 @@ def delete_saved(request):
         print(msg)
 
     return redirect('/library/saved/')
-

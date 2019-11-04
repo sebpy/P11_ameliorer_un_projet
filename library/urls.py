@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^save/$', views.save_product, name='save'),
     url(r'^saved/$', views.read_user_list, name='saved'),
     url(r'^delete/$', views.delete_saved, name='delete'),
+    url(r'^save/(?P<del_int>[0-9]+)/delete/$', views.confirm_delete, name='confirm-delete'),
     url(r'^legal-notice/$', views.legal_notice, name='legal_notice'),
 ]
