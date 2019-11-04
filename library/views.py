@@ -223,7 +223,7 @@ def read_user_list(request):
     """ Function for display saved products for current user """
 
     profile_id = request.user.id
-    query = UserSaveProduct.objects.filter(user_id=profile_id)
+    query = UserSaveProduct.objects.filter(user_id=profile_i)
 
     if not query:
         messages.error(request, '<strong><i class="fas fa-exclamation-triangle">'
