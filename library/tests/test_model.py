@@ -119,6 +119,18 @@ class SaveTestCase(TestCase):
         self.assertEqual(new_count, 1)
         assert response.status_code == 200
 
+    def test_save_without_login(self):
+        client = Client()
+        client.post(
+            '/library/save/?id=' + str(self.product.id),
+            {
+                'user_id': self.user.id,
+                'product_id': self.product.id
+            }
+        )
+        new_count = UserSaveProduct.objects.filter(user_id=self.user.id).count()
+        self.assertEqual(new_count, 0)
+
     def test_del_save(self):
         client = Client()
         client.login(username="Test", password="testdjango")
