@@ -186,7 +186,7 @@ def register(request):
     return render(request, 'library/register.html', context)
 
 
-@login_required
+@login_required(login_url='/library/login/')
 def save_product(request):
     """ Function for save product """
     product_id = request.GET.get('id')
@@ -237,6 +237,10 @@ def read_user_list(request):
             'products': query,
         }
         return render(request, 'library/saved.html', context)
+
+################
+## NEW function
+################
 
 
 @login_required

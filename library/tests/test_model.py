@@ -119,6 +119,10 @@ class SaveTestCase(TestCase):
         self.assertEqual(new_count, 1)
         assert response.status_code == 200
 
+################
+## NEW function
+################
+
     def test_save_without_login(self):
         client = Client()
         client.post(
